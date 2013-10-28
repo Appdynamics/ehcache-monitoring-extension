@@ -1,6 +1,12 @@
 *.class
+*.iml
 
 # Package Files #
-*.jar
 *.war
 *.ear
+
+# Folders #
+.idea
+dist
+out
+build
