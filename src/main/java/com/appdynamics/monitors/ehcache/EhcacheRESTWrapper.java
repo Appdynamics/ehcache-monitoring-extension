@@ -1,7 +1,6 @@
 package com.appdynamics.monitors.ehcache;
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -27,6 +26,10 @@ public class EhcacheRESTWrapper {
         this.port = port;
     }
 
+    /**
+     * Connects to the Ehcache host, then converts the response from host into a HashMap of cache metrics
+     * @return	HashMap containing metrics for all the caches registered to this Ehcache host
+     */
     public HashMap gatherMetrics() throws Exception{
         HttpURLConnection connection = null;
         InputStream is = null;
@@ -54,6 +57,11 @@ public class EhcacheRESTWrapper {
         }
     }
 
+    /**
+     * Converts the inputstream retrieved from the connection to Ehcache host into a HashMap of metrics
+     * @param is Inputstream retrieved from the connection to Ehcache host
+     * @return	HashMap containing metrics for all the caches registered to this Ehcache host
+     */
     private HashMap convertResponseToMap(InputStream is) throws Exception{
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         dbFactory.setNamespaceAware(true);
@@ -97,6 +105,10 @@ public class EhcacheRESTWrapper {
         return metricsMap;
     }
 
+    /**
+     * Construct the REST URL for the Ehcache host
+     * @return	The Ehcache host REST URL string
+     */
     private String constructURL() {
         return new StringBuilder().append("http://").append(host).append(":").append(port).append("/ehcache/rest").toString();
     }

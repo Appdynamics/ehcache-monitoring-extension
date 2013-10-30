@@ -35,7 +35,10 @@ public class EhcacheMonitor extends AManagedMonitor{
         ehcacheMonitor.execute(taskArguments, null);
     }
 
-    @Override
+    /**
+     * Main execution method that uploads the metrics to the AppDynamics Controller
+     * @see com.singularity.ee.agent.systemagent.api.ITask#execute(java.util.Map, com.singularity.ee.agent.systemagent.api.TaskExecutionContext)
+     */
     public TaskOutput execute(Map<String, String> taskArguments, TaskExecutionContext taskExecutionContext) throws TaskExecutionException {
         logger.info("Exceuting EhcacheMonitor...");
         try {
@@ -64,6 +67,10 @@ public class EhcacheMonitor extends AManagedMonitor{
         return new TaskOutput("Task failed with errors");
     }
 
+    /**
+     * Writes the cache metrics to the controller
+     * @param 	metricsMap		HashMap containing all the cache metrics
+     */
     private void printMetrics(HashMap metricsMap) throws Exception{
         HashMap<String, HashMap<String, Number>> metrics = (HashMap<String,HashMap<String,Number>>) metricsMap;
         Iterator outerIterator = metrics.keySet().iterator();
@@ -100,6 +107,10 @@ public class EhcacheMonitor extends AManagedMonitor{
         metricWriter.printMetric(String.valueOf((long) metricValue.doubleValue()));
     }
 
+    /**
+     * Writes the cache metrics to the log file
+     * @param 	metricsMap		HashMap containing all the cache metrics
+     */
     private void printMetricsDebugMode(HashMap metricsMap) {
         HashMap<String, HashMap<String, Number>> metrics = (HashMap<String,HashMap<String,Number>>) metricsMap;
         Iterator outerIterator = metrics.keySet().iterator();
