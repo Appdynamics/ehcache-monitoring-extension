@@ -1,4 +1,7 @@
+package com.appdynamics.monitors.ehcache;
+
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -44,9 +47,9 @@ public class EhcacheRESTWrapper {
                 is.close();
                 connection.disconnect();
             } catch (NullPointerException npe) {
-                // log error
+                throw npe;
             } catch (Exception e) {
-                // log error
+                throw e;
             }
         }
     }

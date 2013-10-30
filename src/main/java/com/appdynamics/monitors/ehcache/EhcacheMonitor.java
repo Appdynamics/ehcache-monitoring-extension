@@ -1,3 +1,5 @@
+package com.appdynamics.monitors.ehcache;
+
 import com.singularity.ee.agent.systemagent.api.AManagedMonitor;
 import com.singularity.ee.agent.systemagent.api.MetricWriter;
 import com.singularity.ee.agent.systemagent.api.TaskExecutionContext;
@@ -5,7 +7,11 @@ import com.singularity.ee.agent.systemagent.api.TaskOutput;
 import com.singularity.ee.agent.systemagent.api.exception.TaskExecutionException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.w3c.dom.DOMException;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -31,19 +37,31 @@ public class EhcacheMonitor extends AManagedMonitor{
 
     @Override
     public TaskOutput execute(Map<String, String> taskArguments, TaskExecutionContext taskExecutionContext) throws TaskExecutionException {
-        logger.debug("Exceuting EhcacheMonitor...");
+        logger.info("Exceuting EhcacheMonitor...");
         try {
             EhcacheRESTWrapper ehcacheRESTWrapper = new EhcacheRESTWrapper(taskArguments.get("host"), taskArguments.get("port"));
 
             HashMap metrics = ehcacheRESTWrapper.gatherMetrics();
-            logger.debug("Gathered metrics successfully");
+            logger.info("Gathered metrics successfully");
             printMetrics(metrics);
-            logger.debug("Printed metrics successfully");
+            if (logger.getLevel().equals(Level.DEBUG)) {
+                logger.debug("Printing metrics in debug mode...");
+                printMetricsDebugMode(metrics);
+            }
+            logger.info("Printed metrics successfully");
             return new TaskOutput("Task successful...");
+        } catch(MalformedURLException e) {
+            logger.error("Check the url for the host", e);
+        } catch(ParserConfigurationException e) {
+            logger.error("DocumentBuilderFactory likely couldn't create an instance of DocumentBuilder", e);
+        } catch(SAXException e) {
+            logger.error("DocumentBuilder failed to parse the inputstream", e);
+        } catch(DOMException e) {
+            logger.error("Failed to get the node text content from the XML response. ", e);
         } catch (Exception e) {
-          logger.error("Error: ", e);
-          return new TaskOutput("Task failed with error : " + e.getMessage());
+            logger.error("Exception: ", e);
         }
+        return new TaskOutput("Task failed with errors");
     }
 
     private void printMetrics(HashMap metricsMap) throws Exception{
@@ -80,5 +98,22 @@ public class EhcacheMonitor extends AManagedMonitor{
                 cluster
         );
         metricWriter.printMetric(String.valueOf((long) metricValue.doubleValue()));
+    }
+
+    private void printMetricsDebugMode(HashMap metricsMap) {
+        HashMap<String, HashMap<String, Number>> metrics = (HashMap<String,HashMap<String,Number>>) metricsMap;
+        Iterator outerIterator = metrics.keySet().iterator();
+
+        while (outerIterator.hasNext()) {
+            String cacheId = outerIterator.next().toString();
+            logger.debug("CacheID: " + cacheId);
+            HashMap<String, Number> cacheStatistics = metrics.get(cacheId);
+            Iterator innerIterator = cacheStatistics.keySet().iterator();
+            while (innerIterator.hasNext()) {
+                String metricName = innerIterator.next().toString();
+                Number metric = cacheStatistics.get(metricName);
+                logger.debug("  MetricName: " + metricName + "  Value: " + metric);
+            }
+        }
     }
 }
