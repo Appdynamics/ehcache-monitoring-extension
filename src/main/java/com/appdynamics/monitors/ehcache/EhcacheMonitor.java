@@ -43,14 +43,9 @@ public class EhcacheMonitor extends AManagedMonitor{
         logger.info("Exceuting EhcacheMonitor...");
         try {
             EhcacheRESTWrapper ehcacheRESTWrapper = new EhcacheRESTWrapper(taskArguments.get("host"), taskArguments.get("port"));
-
             HashMap metrics = ehcacheRESTWrapper.gatherMetrics();
-            logger.info("Gathered metrics successfully");
+            logger.info("Gathered metrics successfully. Size of metrics: " + metrics.size());
             printMetrics(metrics);
-            if (logger.getLevel().equals(Level.DEBUG)) {
-                logger.debug("Printing metrics in debug mode...");
-                printMetricsDebugMode(metrics);
-            }
             logger.info("Printed metrics successfully");
             return new TaskOutput("Task successful...");
         } catch(MalformedURLException e) {
