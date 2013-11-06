@@ -51,3 +51,7 @@ Ehcache is an open source, standards-based cache for boosting performance, offlo
 |misses                | Number of times a requested item was not found in the cache |
 |onDiskHits            | Number of kepspace misses per minute |
 |size                  | Size of the cache |
+
+## Custom Dashboard
+
+![](https://raw.github.com/Appdynamics/ehcache-monitoring-extension/master/Ehcache%20Dashboard.PNG)
