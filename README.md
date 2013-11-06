@@ -1,4 +1,4 @@
-EhCache Monitoring Extension
+Ehcache Monitoring Extension
 ============================
 
 This eXtension works only with the Java agent.
@@ -18,8 +18,8 @@ Ehcache is an open source, standards-based cache for boosting performance, offlo
 	<li>Open &lt;machineagent install dir&gt;/monitors/EhcacheMonitor/conf/monitor.xml and configure the Ehcache parameters.
 <p></p>
 <pre>
-	&lt;argument name="host" is-required="false" default-value="localhost" /&gt;          
-	&lt;argument name="port" is-required="false" default-value="8080" /&gt;
+	&lt;argument name="host" is-required="true" default-value="localhost" /&gt;          
+	&lt;argument name="port" is-required="true" default-value="8080" /&gt;
 </pre>
 	</li>	
 	<li> Restart the machine agent.
