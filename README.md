@@ -38,4 +38,16 @@ Ehcache is an open source, standards-based cache for boosting performance, offlo
 |dist            | Only obtained when using ant. Run 'ant build' to get binaries. Run 'ant package' to get the distributable .zip file |
 |build.xml       | Ant build script to package the project (required only if changing Java code) |
 
+## Metrics
 
+|Metric Name           | Description     |
+|----------------------|-----------------|
+|averageGetTime    	   | The average time to retrieve the requested item from the cache |
+|cacheHits             | The number of times a requested item was found in the cache |
+|diskStoreSize         | The size of the disk store |
+|evictionCount         | The number of cache evictions, since the cache was created, or statistics were cleared |
+|inMemoryHits          | Number of times a requested item was found in the memory store |
+|memoryStoreSize       | The size of the memory store |
+|misses                | Number of times a requested item was not found in the cache |
+|onDiskHits            | Number of kepspace misses per minute |
+|size                  | Size of the cache |
