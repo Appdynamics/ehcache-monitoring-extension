@@ -28,6 +28,14 @@ Ehcache is an open source, standards-based cache for boosting performance, offlo
 	</li>
 </ol>
 
+## Directory Structure
 
+| Directory/File | Description |
+|----------------|-------------|
+|conf            | Contains the monitor.xml |
+|lib             | Contains third-party project references |
+|src             | Contains source code of the Ehcache monitoring extension |
+|dist            | Only obtained when using ant. Run 'ant build' to get binaries. Run 'ant package' to get the distributable .zip file |
+|build.xml       | Ant build script to package the project (required only if changing Java code) |
 
 
