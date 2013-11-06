@@ -55,3 +55,15 @@ Ehcache is an open source, standards-based cache for boosting performance, offlo
 ## Custom Dashboard
 
 ![](https://raw.github.com/Appdynamics/ehcache-monitoring-extension/master/Ehcache%20Dashboard.png?token=2880440__eyJzY29wZSI6IlJhd0Jsb2I6QXBwZHluYW1pY3MvZWhjYWNoZS1tb25pdG9yaW5nLWV4dGVuc2lvbi9tYXN0ZXIvRWhjYWNoZSBEYXNoYm9hcmQucG5nIiwiZXhwaXJlcyI6MTM4NDM2NzI4Mn0%3D--a6f98fa60151f8b5c0823c39fb52770d147e55bf)
+
+##Contributing
+
+Always feel free to fork and contribute any changes directly via [GitHub](https://github.com/Appdynamics/ehcache-monitoring-extension).
+
+##Community
+
+Find out more in the [AppSphere](http://appsphere.appdynamics.com) community.
+
+##Support
+
+For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:ace-request@appdynamics.com).
