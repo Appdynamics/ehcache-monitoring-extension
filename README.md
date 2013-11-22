@@ -54,7 +54,7 @@ Ehcache is an open source, standards-based cache for boosting performance, offlo
 
 ## Custom Dashboard
 
-![](https://github.com/Appdynamics/ehcache-monitoring-extension/blob/master/Ehcache%20Dashboard.png)
+![](https://raw.github.com/Appdynamics/ehcache-monitoring-extension/master/Ehcache%20Dashboard.png)
 
 ##Contributing
 
