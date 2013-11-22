@@ -15,7 +15,7 @@ Ehcache is an open source, standards-based cache for boosting performance, offlo
 	</li>
 	<li>Unzip the deployed file.
 	</li>
-	<li>Open &lt;machineagent install dir&gt;/monitors/EhcacheMonitor/conf/monitor.xml and configure the Ehcache parameters.
+	<li>Open &lt;machineagent install dir&gt;/monitors/EhcacheMonitor/monitor.xml and configure the Ehcache parameters.
 <p></p>
 <pre>
 	&lt;argument name="host" is-required="true" default-value="localhost" /&gt;          
