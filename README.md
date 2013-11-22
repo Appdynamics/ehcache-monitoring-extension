@@ -1,7 +1,7 @@
 Ehcache Monitoring Extension
 ============================
 
-This eXtension works only with the Java agent.
+This eXtension works only with the standalone machine agent.
 
 ## Use Case
 
