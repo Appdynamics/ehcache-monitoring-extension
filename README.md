@@ -62,7 +62,7 @@ Always feel free to fork and contribute any changes directly via [GitHub](https:
 
 ##Community
 
-Find out more in the [AppSphere](http://appsphere.appdynamics.com) community.
+Find out more in the [AppSphere](http://appsphere.appdynamics.com/t5/eXchange/Ehcache-Monitoring-Extension/idi-p/4851) community.
 
 ##Support
 
