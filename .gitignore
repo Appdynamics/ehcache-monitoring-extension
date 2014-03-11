@@ -10,3 +10,6 @@
 dist
 out
 build
+/bin
+.classpath
+.project

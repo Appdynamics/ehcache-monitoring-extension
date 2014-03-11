@@ -15,19 +15,24 @@
 */
 package com.appdynamics.monitors.ehcache;
 
-import org.apache.commons.lang.math.NumberUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 public class EhcacheRESTWrapper {
+	private static final Logger logger = Logger.getLogger(EhcacheMonitor.class);
 
     private final static String CACHE_NODE = "cache";
     private final static String CACHE_STATISTICS_NODE = "statistics";
@@ -49,8 +54,11 @@ public class EhcacheRESTWrapper {
         HttpURLConnection connection = null;
         InputStream is = null;
         HashMap metrics = new HashMap();
+        String cacheServerUrl = constructURL();
+        if(logger.isDebugEnabled()){
+        	logger.debug("Connecting to the Cache Server URL "+cacheServerUrl);
+        }
         try {
-            String cacheServerUrl = constructURL();
             URL u = new URL(cacheServerUrl);
             connection = (HttpURLConnection) u.openConnection();
             connection.setRequestMethod("GET");
@@ -59,20 +67,38 @@ public class EhcacheRESTWrapper {
             metrics = convertResponseToMap(is);
             return metrics;
         } catch(Exception e) {
-            throw e;
+        	printError(connection,cacheServerUrl);
+        	throw e;
         } finally {
-            try {
-                is.close();
-                connection.disconnect();
-            } catch (NullPointerException npe) {
-                throw npe;
-            } catch (Exception e) {
-                throw e;
+            if(is!=null){
+            	try{
+            		is.close();
+            	}catch(Exception e){
+            		//Dont care
+            	}
             }
         }
     }
 
-    /**
+    private void printError(HttpURLConnection connection, String cacheServerUrl) {
+    	if(connection!=null){
+    		try{
+    			InputStream errorStream = connection.getErrorStream();
+    			BufferedReader br = new BufferedReader(new InputStreamReader(errorStream));
+    			String temp;
+    			logger.error("Error while invoking the url "+cacheServerUrl);
+    			StringBuilder sb = new StringBuilder();
+    			while((temp=br.readLine())!=null){
+    				sb.append(temp).append("\n");
+    			}
+    			logger.error("The server Response is "+sb.toString());
+    		}catch(Exception e){
+    			logger.error("Error while printing response ",e);
+    		}
+    	}
+	}
+
+	/**
      * Converts the inputstream retrieved from the connection to Ehcache host into a HashMap of metrics
      * @param is Inputstream retrieved from the connection to Ehcache host
      * @return	HashMap containing metrics for all the caches registered to this Ehcache host
