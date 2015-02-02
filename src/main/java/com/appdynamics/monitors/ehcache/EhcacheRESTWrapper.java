@@ -59,6 +59,7 @@ public class EhcacheRESTWrapper {
         	logger.debug("Connecting to the Cache Server URL "+cacheServerUrl);
         }
         try {
+            logger.debug("The cache server url : " + cacheServerUrl);
             URL u = new URL(cacheServerUrl);
             connection = (HttpURLConnection) u.openConnection();
             connection.setRequestMethod("GET");
@@ -67,6 +68,7 @@ public class EhcacheRESTWrapper {
             metrics = convertResponseToMap(is);
             return metrics;
         } catch(Exception e) {
+            logger.error("Error gathering metrics " + e);
         	printError(connection,cacheServerUrl);
         	throw e;
         } finally {

@@ -3,6 +3,7 @@
     <property name="conf.dir" value="conf" />
     <property name="project.name" value="EhcacheMonitor"/>
     <property name="lib.dir" value="lib"/>
+    <property name="version" value="1.0.1"/>
 
     <path id="myClassPath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
