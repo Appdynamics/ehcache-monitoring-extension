@@ -4,6 +4,7 @@
     <property name="project.name" value="EhcacheMonitor"/>
     <property name="lib.dir" value="lib"/>
     <property name="version" value="1.0.1"/>
+    <property name="licenses" value="licenses"/>
 
     <path id="myClassPath">
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
@@ -29,6 +30,10 @@
         </copy>
         <copy todir="${build.dir}/EhcacheMonitor/">
             <fileset dir="${conf.dir}" includes="monitor.xml"/>
+            <fileset dir="${licenses}">
+                <include name="*.txt" />
+            </fileset>
+
         </copy>
         <copy todir="${build.dir}/EhcacheMonitor/${conf.dir}">
             <fileset dir="${conf.dir}" includes="*.*" excludes="monitor.xml"/>
